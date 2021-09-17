@@ -24,7 +24,11 @@ namespace F3NETFramework
             //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             //_service = new SforceService();
             //_loginResult = new LoginResult();
-            //_loginResult = _service.login("uawan@folio3.com", string.Concat("130624@Umair", "d5B9ujH9WCZnobeGkMPDAXAl7"));
+            //Console.Write("Enter username: ");
+            //string username = Console.ReadLine();
+            //Console.Write("Enter password: ");
+            //string password = Console.ReadLine();
+            //_loginResult = _service.login(username, password);
 
 
             //try
@@ -74,13 +78,10 @@ class QuickstartApiSample
 
     private bool login()
     {
-        //Console.Write("Enter username: ");
-        //string username = Console.ReadLine();
-        //Console.Write("Enter password: ");
-        //string password = Console.ReadLine();
-
-        string username = "uawan@folio3.com";
-        string password = string.Concat("130624@Umair", "d5B9ujH9WCZnobeGkMPDAXAl7");
+        Console.Write("Enter username: ");
+        string username = Console.ReadLine();
+        Console.Write("Enter password: ");
+        string password = Console.ReadLine();
 
         // Create a service object 
         binding = new SforceService();
