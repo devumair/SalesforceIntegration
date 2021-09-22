@@ -16,7 +16,8 @@ namespace SalesforceIntegration
         public EmployeeEntityRESTApi() : base()
         {
             //GetSOjectDetail();
-            GetEmployee();
+            //GetEmployee();
+            UpdateEmployeeContactNumberSalary();
         }
 
         public void GetSOjectDetail()
@@ -69,5 +70,41 @@ namespace SalesforceIntegration
                 // Multiple records, either filter further to determine correct Account or choose the first result
             }
         }
+
+        public string UpdateEmployeeContactNumberSalary()
+        {
+            var employeeData = new EmployeeModel
+            {
+                EntityID = "a025f000001TwGPAA0",
+                ContactNumber = "123-123-1234",
+                EmployeeSalary = "51000"
+            };
+
+            //string updateMessage = $"<root>" +
+            //    $"<Contact_Number__c>{employeeData.ContactNumber}</Contact_Number__c>" +
+            //    $"<Employee_Salary__c>{employeeData.EmployeeSalary}</Employee_Salary__c>" +
+            //    $"</root>";
+
+            //string updateMessage = JsonConvert.SerializeObject(employeeData, Newtonsoft.Json.Formatting.None,
+            //                new JsonSerializerSettings
+            //                {
+            //                    NullValueHandling = NullValueHandling.Ignore,
+
+            //                });
+
+            string updateMessage = JsonConvert.SerializeObject(employeeData);
+
+            string result = UpdateRecord(updateMessage, ENTITY_NAME, employeeData.EntityID);
+
+            if (result != "")
+            {
+                // logger.SalesforceError("Update", "Account");
+                return null;
+            }
+
+            // logger.SalesforceSuccess("Update", "Account", accountId);
+            return employeeData.EntityID;
+        }
+
     }
 }

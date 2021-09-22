@@ -7,9 +7,9 @@ using System.Text;
 
 namespace SalesforceIntegration.Models
 {
-    public class EmployeeModel
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+    public class EmployeeModel : EntityModel
     {
-
         [JsonProperty("Name")]
         public string EmployeeName { get; set; }
 

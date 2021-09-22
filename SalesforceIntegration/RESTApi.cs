@@ -79,15 +79,15 @@ namespace SalesforceIntegration
             return response.Content.ReadAsStringAsync().Result;
         }
 
-        private string UpdateRecord(string updateMessage, string recordType, string recordId)
+        protected string UpdateRecord(string updateMessage, string recordType, string recordId)
         {
-            HttpContent contentUpdate = new StringContent(updateMessage, Encoding.UTF8, "application/xml");
+            HttpContent contentUpdate = new StringContent(updateMessage, Encoding.UTF8, "application/json");
 
             string uri = $"{ServiceUrl}{ApiEndpoint}sobjects/{recordType}/{recordId}?_HttpMethod=PATCH";
 
             HttpRequestMessage requestUpdate = new HttpRequestMessage(HttpMethod.Post, uri);
             requestUpdate.Headers.Add("Authorization", "Bearer " + AuthToken);
-            requestUpdate.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+            requestUpdate.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/jsons"));
             requestUpdate.Content = contentUpdate;
 
             HttpResponseMessage response = Client.SendAsync(requestUpdate).Result;
