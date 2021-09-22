@@ -24,7 +24,7 @@ namespace SalesforceIntegration
 
         readonly protected HttpClient Client;
 
-        public RESTApi(string sObjectName)
+        public RESTApi()
         {
             Client = new HttpClient();
 
@@ -55,11 +55,11 @@ namespace SalesforceIntegration
             Console.WriteLine("ServiceUrl: {0}", ServiceUrl);
         }
 
-        protected string GetSOjectDetail()
+        protected string GetSOjectDetail(string sObjectName)
         {
-            string restQuery = $"{ServiceUrl}{ApiEndpoint}/sobjects/{SObjectName}";
+            string restQuery = $"{ServiceUrl}{ApiEndpoint}sobjects/{sObjectName}";
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, );
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, restQuery);
             request.Headers.Add("Authorization", "Bearer " + AuthToken);
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -67,7 +67,7 @@ namespace SalesforceIntegration
             return response.Content.ReadAsStringAsync().Result;
         }
 
-        protected string QueryRecord(HttpClient client, string queryMessage)
+        protected string QueryRecord(string queryMessage)
         {
             string restQuery = $"{ServiceUrl}{ApiEndpoint}query?q={queryMessage}";
 
@@ -75,7 +75,22 @@ namespace SalesforceIntegration
             request.Headers.Add("Authorization", "Bearer " + AuthToken);
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.SendAsync(request).Result;
+            HttpResponseMessage response = Client.SendAsync(request).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        private string UpdateRecord(string updateMessage, string recordType, string recordId)
+        {
+            HttpContent contentUpdate = new StringContent(updateMessage, Encoding.UTF8, "application/xml");
+
+            string uri = $"{ServiceUrl}{ApiEndpoint}sobjects/{recordType}/{recordId}?_HttpMethod=PATCH";
+
+            HttpRequestMessage requestUpdate = new HttpRequestMessage(HttpMethod.Post, uri);
+            requestUpdate.Headers.Add("Authorization", "Bearer " + AuthToken);
+            requestUpdate.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+            requestUpdate.Content = contentUpdate;
+
+            HttpResponseMessage response = Client.SendAsync(requestUpdate).Result;
             return response.Content.ReadAsStringAsync().Result;
         }
 
