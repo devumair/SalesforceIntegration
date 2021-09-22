@@ -99,11 +99,11 @@ namespace SalesforceIntegration
 
             if (result != "")
             {
-                // logger.SalesforceError("Update", "Account");
+                // logger.SalesforceError("Update", ENTITY_NAME);
                 return null;
             }
 
-            // logger.SalesforceSuccess("Update", "Account", accountId);
+            // logger.SalesforceSuccess("Update", ENTITY_NAME, employeeData.EntityID);
             return employeeData.EntityID;
         }
 
