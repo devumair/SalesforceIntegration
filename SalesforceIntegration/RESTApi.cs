@@ -94,5 +94,18 @@ namespace SalesforceIntegration
             return response.Content.ReadAsStringAsync().Result;
         }
 
+        protected string CreateRecord(string createMessage, string recordType)
+        {
+            HttpContent contentCreate = new StringContent(createMessage, Encoding.UTF8, "application/json");
+            string uri = $"{ServiceUrl}{ApiEndpoint}sobjects/{recordType}";
+
+            HttpRequestMessage requestCreate = new HttpRequestMessage(HttpMethod.Post, uri);
+            requestCreate.Headers.Add("Authorization", "Bearer " + AuthToken);
+            requestCreate.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            requestCreate.Content = contentCreate;
+
+            HttpResponseMessage response = Client.SendAsync(requestCreate).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
     }
 }

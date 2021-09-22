@@ -17,7 +17,8 @@ namespace SalesforceIntegration
         {
             //GetSOjectDetail();
             //GetEmployee();
-            UpdateEmployeeContactNumberSalary();
+            //UpdateEmployeeContactNumberSalary();
+            CreateEmployee(null);
         }
 
         public void GetSOjectDetail()
@@ -105,6 +106,36 @@ namespace SalesforceIntegration
             // logger.SalesforceSuccess("Update", "Account", accountId);
             return employeeData.EntityID;
         }
+
+        public string CreateEmployee(EmployeeModel employeeData)
+        {
+            employeeData = new EmployeeModel
+            {
+                EmployeeName = "BobEmp",
+                ContactNumber = "123-456-7890",
+                EmployeeSalary = "60000",
+                EmployeeDesignation = "Product Manager",
+                JoiningDate = DateTime.Now.Date.ToString("yyyy-MM-dd")
+            };
+
+            string createMessage = JsonConvert.SerializeObject(employeeData);
+            
+            string result = CreateRecord(createMessage, ENTITY_NAME);
+
+            JObject obj = JObject.Parse(result);
+            string id = (string)obj["id"];
+            string success = (string)obj["success"];
+
+            if (success != "True")
+            {
+                // logger.SalesforceError("Create", ENTITY_NAME);
+                return null;
+            }
+
+            // logger.SalesforceSuccess("Create", ENTITY_NAME, id);
+            return id;
+        }
+
 
     }
 }
