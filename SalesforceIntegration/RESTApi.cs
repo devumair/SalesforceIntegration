@@ -14,7 +14,7 @@ namespace SalesforceIntegration
         public const string LoginEndpoint = "https://login.salesforce.com/services/oauth2/token";
         public const string ApiEndpoint = "/services/data/v36.0/"; //Use your org's version number
 
-        private string Username { get; set; } = "uawan@folio3.com";
+        private string Username { get; set; } = "XXX@XXX.com";
         private string Password { get; set; } = "XXXX";
         private string Token { get; set; }
         private string ClientId { get; set; } = "XXXX";
