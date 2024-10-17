@@ -15,10 +15,10 @@ namespace SalesforceIntegration
         public const string ApiEndpoint = "/services/data/v36.0/"; //Use your org's version number
 
         private string Username { get; set; } = "uawan@folio3.com";
-        private string Password { get; set; } = "130624@UmairlBL8JhP9pLJUY2CsxHWhfDr6d";
+        private string Password { get; set; } = "XXXX";
         private string Token { get; set; }
-        private string ClientId { get; set; } = "3MVG9p1Q1BCe9GmBmXmHkrOH6D2X..hP3NUdVbLYkYkU_O8XgeDldgDWRI5nj4QbKf30tam.8Sz6cH1Br2jlo";
-        private string ClientSecret { get; set; } = "CC765A3198263CA7CCECE184A89D28DFC265DF853AFB1964ED06F5653C18DD51";
+        private string ClientId { get; set; } = "XXXX";
+        private string ClientSecret { get; set; } = "XXXX";
         public string AuthToken { get; set; }
         public string ServiceUrl { get; set; }
 
